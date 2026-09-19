@@ -11,6 +11,9 @@ import com.oheers.fish.config.gui.impl.BaitsMenuGuiConfig;
 import com.oheers.fish.config.gui.impl.JournalFishGuiConfig;
 import com.oheers.fish.config.gui.impl.JournalRaritiesGuiConfig;
 import com.oheers.fish.config.gui.impl.MainMenuGuiConfig;
+import com.oheers.fish.config.gui.impl.SkillsGuiConfig;
+import com.oheers.fish.config.gui.impl.StatsGuiConfig;
+import com.oheers.fish.progression.ProgressionConfig;
 import com.oheers.fish.config.gui.impl.SellMenuConfirmGuiConfig;
 import com.oheers.fish.config.gui.impl.SellMenuNormalGuiConfig;
 
@@ -38,6 +41,9 @@ public class ConfigurationManager {
             MainMenuGuiConfig.getInstance();
             SellMenuConfirmGuiConfig.getInstance();
             SellMenuNormalGuiConfig.getInstance();
+            StatsGuiConfig.getInstance();
+            SkillsGuiConfig.getInstance();
+            ProgressionConfig.getInstance();
 
             // Split guis.yml into the above files.
             new GuiConversions().performCheck();
@@ -68,6 +74,9 @@ public class ConfigurationManager {
             MainMenuGuiConfig.getInstance().reload();
             SellMenuConfirmGuiConfig.getInstance().reload();
             SellMenuNormalGuiConfig.getInstance().reload();
+            StatsGuiConfig.getInstance().reload();
+            SkillsGuiConfig.getInstance().reload();
+            ProgressionConfig.getInstance().reload();
 
             GuiFillerConfig.getInstance().reload();
 

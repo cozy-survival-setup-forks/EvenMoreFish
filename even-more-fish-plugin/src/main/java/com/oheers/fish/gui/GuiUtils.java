@@ -9,6 +9,8 @@ import com.oheers.fish.fishing.items.Rarity;
 import com.oheers.fish.gui.guis.BaitsGui;
 import com.oheers.fish.gui.guis.FishJournalGui;
 import com.oheers.fish.gui.guis.MainMenuGui;
+import com.oheers.fish.gui.guis.SkillTreeGui;
+import com.oheers.fish.gui.guis.StatsGui;
 import com.oheers.fish.gui.guis.SellGui;
 import com.oheers.fish.messages.ConfigMessage;
 import de.themoep.inventorygui.GuiElement;
@@ -104,6 +106,24 @@ public class GuiUtils {
                 gui.doRescue();
             }
             closeGui(click.getWhoClicked());
+        });
+        newActionMap.put("open-stats-menu", (gui, click) -> {
+            if (gui != null) {
+                gui.doRescue();
+            }
+            if (click.getWhoClicked() instanceof Player player) {
+                StatsGui.openAsync(player);
+            }
+            clearHistory(click.getWhoClicked());
+        });
+        newActionMap.put("open-skills-menu", (gui, click) -> {
+            if (gui != null) {
+                gui.doRescue();
+            }
+            if (click.getWhoClicked() instanceof Player player) {
+                new SkillTreeGui(player).open();
+            }
+            clearHistory(click.getWhoClicked());
         });
         newActionMap.put("open-baits-menu", (gui, click) -> {
             if (gui != null) {

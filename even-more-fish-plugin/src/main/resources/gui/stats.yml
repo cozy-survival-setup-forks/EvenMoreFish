@@ -1,0 +1,57 @@
+# Configuration for the Stats GUI, shown from the main menu or with /emf stats.
+# Text is MiniMessage. Placeholders in {curly braces} are filled in by the plugin.
+
+title: <#006F86>Fishing | Stats {player}
+layout:
+  - "         "
+  - "   s g   "
+  - "         "
+  - "    x    "
+filler: gray_stained_glass_pane
+
+skill-tree:
+  character: s
+  material: experience_bottle
+  title: "<aqua><bold>SKILL TREE"
+  lines:
+    - "<gray>Fishing"
+    - ""
+    - "<gray>▸ Level: <aqua>{level}"
+    - "<gray>▸ Skill Points: <aqua>{skill-points}"
+    - "<gray>▸ Current XP: <aqua>{xp-into-level}"
+    - "<gray>▸ Required XP: <aqua>{xp-required}"
+    - ""
+    - "<yellow>» Click to open the skill tree."
+
+general-stats:
+  character: g
+  material: book
+  title: "<green><bold>GENERAL STATS"
+  # {rarity-lines} is replaced by one line for every rarity, built from rarity-line below.
+  lines:
+    - "<gray>Fishing"
+    - ""
+    - "<gray>▸ Total Fish Caught: <green>{total-caught}"
+    - ""
+    - "{rarity-lines}"
+    - ""
+    - "<gray>▸ Fish Sold: <green>{fish-sold}"
+    - "<gray>▸ Money Made: <green>{money-made}"
+    - "<gray>▸ Longest Fish: <green>{longest-fish}cm"
+    - "<gray>▸ Competitions Won: <green>{competitions-won}"
+    - "<gray>▸ Competitions Joined: <green>{competitions-joined}"
+  rarity-line: "<gray>▸ {rarity}<gray> Caught: <green>{count}"
+
+exit:
+  item:
+    material: pufferfish
+    displayname: <red>Back
+    lore:
+      - <yellow>Back to the Menu
+  glowing: true
+  character: x
+  click-action: open-main-menu
+
+# ATTENTION ATTENTION ATTENTION
+# DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
+version: 1

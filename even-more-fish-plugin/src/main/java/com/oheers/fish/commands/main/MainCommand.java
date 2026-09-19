@@ -11,6 +11,8 @@ import com.oheers.fish.competition.CompetitionManager;
 import com.oheers.fish.config.MainConfig;
 import com.oheers.fish.gui.guis.ApplyBaitsGui;
 import com.oheers.fish.gui.guis.MainMenuGui;
+import com.oheers.fish.gui.guis.SkillTreeGui;
+import com.oheers.fish.gui.guis.StatsGui;
 import com.oheers.fish.messages.ConfigMessage;
 import com.oheers.fish.messages.PrefixType;
 import com.oheers.fish.messages.abstracted.EMFMessage;
@@ -69,6 +71,8 @@ public class MainCommand implements EMFCommand {
             .then(top())
             .then(sellAll())
             .then(applyBaits())
+            .then(stats())
+            .then(skills())
             .build();
     }
 
@@ -147,6 +151,24 @@ public class MainCommand implements EMFCommand {
                     return 1;
                 }
                 new ApplyBaitsGui(player, null).open();
+                return 1;
+            });
+    }
+
+    public @NonNull ArgumentBuilder<CommandSourceStack, ?> stats() {
+        return Commands.literal("stats")
+            .requires(stack -> stack.getSender().hasPermission(UserPerms.GUI))
+            .executes(ctx -> {
+                StatsGui.openAsync(CommandUtils.requirePlayer(ctx));
+                return 1;
+            });
+    }
+
+    public @NonNull ArgumentBuilder<CommandSourceStack, ?> skills() {
+        return Commands.literal("skills")
+            .requires(stack -> stack.getSender().hasPermission(UserPerms.GUI))
+            .executes(ctx -> {
+                new SkillTreeGui(CommandUtils.requirePlayer(ctx)).open();
                 return 1;
             });
     }

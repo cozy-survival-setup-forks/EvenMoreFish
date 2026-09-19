@@ -11,6 +11,8 @@ import com.oheers.fish.fishing.EMFFishListener;
 import com.oheers.fish.fishing.exploits.ExploitListener;
 import com.oheers.fish.fishing.processors.FishingProcessor;
 import com.oheers.fish.fishing.processors.HuntingProcessor;
+import com.oheers.fish.progression.ProgressionListener;
+import com.oheers.fish.progression.SellModifiers;
 import com.oheers.fish.recipe.RecipeListener;
 import com.oheers.fish.update.UpdateNotify;
 import com.oheers.fish.utils.ItemProtectionListener;
@@ -44,6 +46,8 @@ public class EventManager {
         pm.registerEvents(new FishInteractEvent(), plugin);
         pm.registerEvents(new RecipeListener(), plugin);
         pm.registerEvents(new ExploitListener(), plugin);
+        pm.registerEvents(new ProgressionListener(), plugin);
+        pm.registerEvents(new SellModifiers(), plugin);
     }
 
     public void registerOptionalListeners() {

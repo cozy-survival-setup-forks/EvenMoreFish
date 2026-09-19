@@ -238,6 +238,8 @@ command:
   # Aliases for the main command
   aliases:
     - evenmorefish
+  # Also register /fish, which opens the main menu. Requires a server restart to take effect.
+  fish-alias: true
 
   # Change the name of the plugin's subcommands
   subcommands:

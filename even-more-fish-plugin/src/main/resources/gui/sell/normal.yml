@@ -5,7 +5,7 @@ layout:
   - "iiiiiiiii"
   - "iiiiiiiii"
   - "iiiiiiiii"
-  - "   s a   "
+  - "  p s a k "
 filler: light_blue_stained_glass_pane
 # The character to use for the slots where players can place fish.
 deposit-character: i
@@ -44,6 +44,31 @@ sell-all-item:
     left: sell-inventory
     right: full-exit
 
+# Shows what each rarity of fish is worth. {price} is the average base worth of a fish of that rarity.
+prices:
+  character: p
+  material: emerald
+  title: "<green><bold>PRICES"
+  lines:
+    - "<gray>Fishing"
+    - ""
+    - "<gold>Information"
+  rarity-line: "<gray>▸ {rarity}<gray>: <green>{price}"
+
+# Shows the special fish, which sells for a bonus until the timer runs out. See progression.yml.
+special-fish:
+  character: k
+  title: "<red><bold>SPECIAL FISH"
+  lines:
+    - "<gray>Fishing"
+    - ""
+    - "<gold>Information"
+    - "<gray>Fish: <yellow>{fish}"
+    - "<gray>Tier: <aqua>{tier}"
+    - "<gray>Multiplier: <light_purple>{multiplier}x"
+    - ""
+    - "<red>Resets in <yellow>{minutes} minutes<red>."
+
 # ATTENTION ATTENTION ATTENTION
 # DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
-version: 1
+version: 2

@@ -74,7 +74,7 @@ public class SoldFish {
      * @param quantity The new quantity of the fish. This must be above 0.
      */
     public void setQuantity(int quantity) {
-        this.quantity = Math.min(1, quantity);
+        this.quantity = Math.max(1, quantity);
     }
 
     /**

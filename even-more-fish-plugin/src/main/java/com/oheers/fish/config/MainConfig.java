@@ -274,6 +274,11 @@ public class MainConfig extends ConfigBase {
         return mainCommandName;
     }
 
+    /** Whether /fish also opens the menu. On by default. */
+    public boolean isFishAliasEnabled() {
+        return getConfig().getBoolean("command.fish-alias", true);
+    }
+
     public List<String> getMainCommandAliases() {
         return mainCommandAliases;
     }

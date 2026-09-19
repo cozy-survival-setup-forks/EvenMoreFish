@@ -38,6 +38,12 @@ fish-item:
     displayname: <white>{fishname}
     lore:
       - ''
+      - '<gold>Information'
+      - '<gray>▸ Tier: {rarity}'
+      - '<gray>▸ Size: <aqua>{size-range}'
+      - '<gray>▸ Price: <green>{price}'
+      - '<gray>▸ Biomes: <red>{biomes}'
+      - ''
       - '<white>Caught: {times-caught}x'
       - '<white>Largest Size: {largest-size}cm'
       - '<white>Smallest Size: {smallest-size}cm'

@@ -1,0 +1,67 @@
+# Fishing levels, skills and the special fish.
+
+progression:
+  # Fishing gives XP for every catch. Levels give skill points that are spent in the skill tree.
+  enabled: true
+
+  xp:
+    # XP for a fish whose rarity is not listed below.
+    default: 5
+    # XP by rarity id (lower case). Use the ids from your rarities folder.
+    rarities:
+      junk: 1
+      common: 5
+      rare: 20
+      epic: 40
+      legendary: 100
+
+  levels:
+    # XP needed for level 1. Every level after that needs "growth" times more than the one before.
+    base-xp: 100
+    growth: 1.2
+    skill-points-per-level: 1
+
+  level-up:
+    # Placeholders: <level> and <points> (unspent skill points).
+    message: "<gold>Fishing level up! You are now level <yellow><level></yellow> and have <yellow><points></yellow> skill points."
+
+  # Skills bought with skill points. Effects: sell-bonus (% more money from fish),
+  # xp-boost (% more fishing XP) and special-boost (extra multiplier on the special fish).
+  skills:
+    merchant:
+      name: "Master Merchant"
+      description: "Fish sell for more money."
+      icon: gold_ingot
+      effect: sell-bonus
+      per-level: 2.0
+      max-level: 10
+      cost: 1
+    scholar:
+      name: "Quick Learner"
+      description: "Earn more fishing XP."
+      icon: experience_bottle
+      effect: xp-boost
+      per-level: 5.0
+      max-level: 10
+      cost: 1
+    lucky:
+      name: "Lucky Angler"
+      description: "The special fish is worth even more."
+      icon: nautilus_shell
+      effect: special-boost
+      per-level: 0.1
+      max-level: 5
+      cost: 2
+
+# One fish is picked as the special fish and sells for more until the timer runs out.
+special-fish:
+  enabled: true
+  multiplier: 1.5
+  # How long each special fish lasts.
+  reset-minutes: 360
+  # Fish of these rarities are never picked.
+  excluded-rarities: []
+
+# ATTENTION ATTENTION ATTENTION
+# DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
+version: 1

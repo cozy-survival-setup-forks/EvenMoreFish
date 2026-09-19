@@ -395,7 +395,12 @@ public class EvenMoreFish extends EMFPlugin {
     @SuppressWarnings("UnstableApiUsage")
     public void loadCommands() {
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event -> {
-            event.registrar().register(new MainCommand().get(), MainConfig.getInstance().getMainCommandAliases());
+            java.util.List<String> aliases = new java.util.ArrayList<>(MainConfig.getInstance().getMainCommandAliases());
+            String mainName = MainConfig.getInstance().getMainCommandName();
+            if (MainConfig.getInstance().isFishAliasEnabled() && !mainName.equalsIgnoreCase("fish") && !aliases.contains("fish")) {
+                aliases.add("fish");
+            }
+            event.registrar().register(new MainCommand().get(), aliases);
             if (MainConfig.getInstance().isAdminShortcutCommandEnabled()) {
                 String shortcut = MainConfig.getInstance().getAdminShortcutCommandName();
                 event.registrar().register(new AdminCommand(shortcut).get());

@@ -10,6 +10,7 @@ import com.oheers.fish.api.config.serializer.SoundSerializer;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.api.economy.selling.SellHelper;
 import com.oheers.fish.api.economy.selling.SoldFish;
+import com.oheers.fish.progression.SellModifiers;
 import com.oheers.fish.api.fishing.items.IFish;
 import com.oheers.fish.baits.manager.BaitManager;
 import com.oheers.fish.config.MainConfig;
@@ -412,11 +413,23 @@ public class FishUtils {
     }
 
     public static double calculateInventoryWorth(@NonNull Inventory inventory) {
+        return calculateInventoryWorth(inventory, null);
+    }
+
+    /**
+     * The worth of the fish in an inventory. When a player is given, their bonuses (special fish,
+     * skills) are included so a menu shows what a sale would really pay.
+     */
+    public static double calculateInventoryWorth(@NonNull Inventory inventory, @Nullable Player player) {
         double worth = 0;
         for (ItemStack itemStack : inventory) {
-            SoldFish fish = SoldFish.get(null, itemStack);
-            if (fish != null) {
-                worth += fish.getFinalValue();
+            SoldFish fish = SoldFish.get(player, itemStack);
+            if (fish == null) {
+                continue;
+            }
+            double value = SellModifiers.valueOf(player, fish);
+            if (value >= 0) {
+                worth += value * fish.getQuantity();
             }
         }
         return worth;

@@ -61,6 +61,16 @@ public class Requirement {
         this.checkMap.put(identifier, values);
     }
 
+    /** The values set for a requirement type such as "biome", or an empty list if it is not used. */
+    public @NonNull List<String> getValues(@NonNull String identifier) {
+        for (Map.Entry<String, List<String>> entry : checkMap.entrySet()) {
+            if (entry.getKey().equalsIgnoreCase(identifier)) {
+                return List.copyOf(entry.getValue());
+            }
+        }
+        return List.of();
+    }
+
     public boolean check(@NonNull Player player) {
         return check(RequirementContext.player(player));
     }

@@ -217,6 +217,10 @@ public class FishJournalGui extends ConfigGui {
                 .orElse(Collections.emptyList())
         );
 
+        lore.setVariable("{rarity}", net.kyori.adventure.text.minimessage.MiniMessage.miniMessage().serialize(fish.getRarity().getDisplayName()));
+        lore.setVariable("{price}", com.oheers.fish.gui.SellInfoItems.priceText(fish));
+        lore.setVariable("{biomes}", com.oheers.fish.gui.SellInfoItems.biomesText(fish));
+        lore.setVariable("{size-range}", com.oheers.fish.gui.SellInfoItems.sizeText(fish));
         lore.setVariable("{times-caught}", getValueOrDefault(() -> userFishStats == null ? null : Integer.toString(userFishStats.getQuantity()), "0"));
         lore.setVariable("{largest-size}", getValueOrDefault(() -> userFishStats == null ? null : String.valueOf(userFishStats.getLongestLength()), "0"));
         lore.setVariable("{smallest-size}", getValueOrDefault(() -> userFishStats == null ? null : String.valueOf(userFishStats.getShortestLength()), "0"));

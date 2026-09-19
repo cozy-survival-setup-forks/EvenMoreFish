@@ -1,0 +1,65 @@
+# Configuration for the Skill Tree GUI, shown from the Stats menu or with /emf skills.
+# The skills themselves (names, costs, effects) are set up in progression.yml.
+# Text is MiniMessage. Placeholders in {curly braces} are filled in by the plugin.
+
+title: <#006F86>Fishing | Skill Tree
+layout:
+  - "    i    "
+  - "  kkkkk  "
+  - "  kkkkk  "
+  - "    x    "
+filler: gray_stained_glass_pane
+
+summary:
+  character: i
+  material: experience_bottle
+  title: "<aqua><bold>SKILL TREE"
+  lines:
+    - "<gray>Fishing"
+    - ""
+    - "<gray>▸ Level: <aqua>{level}"
+    - "<gray>▸ Skill Points: <aqua>{skill-points}"
+    - "<gray>▸ Current XP: <aqua>{xp-into-level}"
+    - "<gray>▸ Required XP: <aqua>{xp-required}"
+
+skill:
+  character: k
+  title: "<yellow><bold>{name}"
+  lines:
+    - "<gray>Fishing"
+    - ""
+    - "<gray>{description}"
+    - ""
+    - "<gray>▸ Level: <yellow>{level}<gray>/<yellow>{max-level}"
+    - "<gray>▸ Effect: <green>{effect}"
+    - "<gray>▸ Current bonus: <green>{current-bonus}"
+    - "<gray>▸ Per level: <green>{per-level}"
+    - "<gray>▸ Cost: <aqua>{cost} skill points"
+    - ""
+  buy-line: "<yellow>» Click to upgrade."
+  maxed-line: "<green>Fully upgraded!"
+  # What each kind of skill does, shown as "Effect".
+  effects:
+    sell-bonus: "% more money from fish"
+    xp-boost: "% more fishing XP"
+    special-boost: "extra on the special fish multiplier"
+
+messages:
+  bought: "<green>You upgraded <yellow>{name}<green>!"
+  maxed: "<red>{name} is already fully upgraded."
+  not-enough-points: "<red>You do not have enough skill points for {name}."
+  unknown: "<red>That skill no longer exists."
+
+exit:
+  item:
+    material: pufferfish
+    displayname: <red>Back
+    lore:
+      - <yellow>Back to your stats
+  glowing: true
+  character: x
+  click-action: open-stats-menu
+
+# ATTENTION ATTENTION ATTENTION
+# DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
+version: 1

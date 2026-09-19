@@ -5,8 +5,8 @@ layout:
   - "126515621"
   - "23     32"
   - "4 t s h 4"
-  - "4  j b  4"
-  - "23     32"
+  - "4 j c k 4"
+  - "23  b  32"
   - "1265x5621"
 # This should be the most used filler item.
 filler: black_stained_glass_pane
@@ -61,14 +61,39 @@ open-baits:
 open-journal:
   item:
     material: writable_book
-    displayname: "<gold>» Fish Journal"
+    displayname: "<gold>» Fish Codex"
     lore:
       - ""
-      - <gray>Keep track of all the
-      - <gray>fish you have caught.
+      - <gray>Discover every catchable
+      - <gray>fish and keep track of
+      - <gray>the ones you have caught.
       - ""
   character: j
   click-action: open-journal-menu
+
+open-stats:
+  item:
+    material: knowledge_book
+    displayname: "<gold>» Fishing Stats"
+    lore:
+      - ""
+      - <gray>See how many fish you have
+      - <gray>caught, your level and more.
+      - ""
+  character: c
+  click-action: open-stats-menu
+
+open-skills:
+  item:
+    material: experience_bottle
+    displayname: "<gold>» Skill Tree"
+    lore:
+      - ""
+      - <gray>Spend skill points earned
+      - <gray>from fishing on bonuses.
+      - ""
+  character: k
+  click-action: open-skills-menu
 
 exit:
   item:
@@ -82,4 +107,4 @@ exit:
 
 # ATTENTION ATTENTION ATTENTION
 # DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
-version: 1
+version: 2

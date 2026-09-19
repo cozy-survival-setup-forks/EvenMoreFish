@@ -8,6 +8,7 @@ import com.oheers.fish.config.gui.GuiConfig;
 import com.oheers.fish.config.gui.impl.SellMenuConfirmGuiConfig;
 import com.oheers.fish.config.gui.impl.SellMenuNormalGuiConfig;
 import com.oheers.fish.gui.ConfigGui;
+import com.oheers.fish.gui.SellInfoItems;
 import de.themoep.inventorygui.GuiStorageElement;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
 import org.bukkit.Bukkit;
@@ -31,10 +32,10 @@ public class SellGui extends ConfigGui {
 
         Economy economy = Economy.getInstance();
 
-        double shopSaleValue = FishUtils.calculateInventoryWorth(this.fishInventory);
+        double shopSaleValue = FishUtils.calculateInventoryWorth(this.fishInventory, player);
         addReplacement("{sell-price}", economy.getWorthFormat(shopSaleValue, true));
 
-        double playerSaleValue = FishUtils.calculateInventoryWorth(player.getInventory());
+        double playerSaleValue = FishUtils.calculateInventoryWorth(player.getInventory(), player);
         addReplacement("{sell-all-price}", economy.getWorthFormat(playerSaleValue, true));
 
         setCloseAction(close -> {
@@ -46,6 +47,7 @@ public class SellGui extends ConfigGui {
         });
 
         createGui();
+        SellInfoItems.addTo(this, player);
 
         Section config = getGuiConfig();
         if (config != null) {
