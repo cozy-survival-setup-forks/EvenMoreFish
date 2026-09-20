@@ -34,6 +34,10 @@ fish-item:
     displayname: <white>{fishname}
     lore:
       - ''
+      # The fish's own lore from its rarity file (lore-override), such as its description.
+      # If this line is removed, it is shown at the top instead.
+      - '{fish-lore}'
+      - ''
       - '<gold>Information'
       - '<gray>▸ Tier: {rarity}'
       - '<gray>▸ Size: <aqua>{size-range}'

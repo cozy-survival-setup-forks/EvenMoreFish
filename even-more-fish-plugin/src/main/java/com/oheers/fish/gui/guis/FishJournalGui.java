@@ -213,10 +213,13 @@ public class FishJournalGui extends ConfigGui {
         final String discoverer = getDiscoverer(fishStats, getUnknownMessage());
 
         EMFListMessage lore = EMFListMessage.ofList(
-            com.oheers.fish.gui.SellInfoItems.expandBiomeLines(
-                Optional.ofNullable(factory.getItemConfig(LoreItemConfig.class))
-                    .map(ItemConfig::getConfiguredValue)
-                    .orElse(Collections.<net.kyori.adventure.text.Component>emptyList()),
+            com.oheers.fish.gui.SellInfoItems.expandFishLore(
+                com.oheers.fish.gui.SellInfoItems.expandBiomeLines(
+                    Optional.ofNullable(factory.getItemConfig(LoreItemConfig.class))
+                        .map(ItemConfig::getConfiguredValue)
+                        .orElse(Collections.<net.kyori.adventure.text.Component>emptyList()),
+                    fish
+                ),
                 fish
             )
         );

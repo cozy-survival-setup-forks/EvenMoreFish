@@ -262,7 +262,8 @@ public class Fish implements IFish {
         checkEffects();
     }
 
-    private List<String> getLoreOverride() {
+    /** The lore set for this fish, or its rarity, in the lore-override option. */
+    public List<String> getLoreOverride() {
         return section.getStringList("lore-override", rarity.getLoreOverride());
     }
 

@@ -4,16 +4,20 @@ import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.api.fishing.items.IFish;
 import com.oheers.fish.api.fishing.items.IRarity;
+import com.oheers.fish.fishing.items.Fish;
 import com.oheers.fish.fishing.items.FishManager;
+import com.oheers.fish.messages.LegacyText;
 import com.oheers.fish.progression.SpecialFish;
 import de.themoep.inventorygui.StaticGuiElement;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NonNull;
+import uk.firedev.daisylib.messages.message.ComponentMessage;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -145,6 +149,44 @@ public final class SellInfoItems {
             for (int i = 0; i < lines.size(); i++) {
                 String text = lines.get(i) + (i < lines.size() - 1 ? "," : "");
                 out.add(mini.deserialize((i == 0 ? prefix : carry + "  ") + text + suffix));
+            }
+        }
+        return out;
+    }
+
+    private static final String FISH_LORE = "{fish-lore}";
+
+    /**
+     * Puts the fish's own lore (the lore-override in its rarity file, for example its description) into
+     * the codex tooltip. It goes where a line says {fish-lore}, or at the top if no line does.
+     */
+    public static @NonNull List<Component> expandFishLore(@NonNull List<Component> lore, @NonNull IFish fish) {
+        if (!(fish instanceof Fish configured)) {
+            return lore;
+        }
+        MiniMessage mini = MiniMessage.miniMessage();
+        PlainTextComponentSerializer plain = PlainTextComponentSerializer.plainText();
+
+        List<Component> own = new ArrayList<>();
+        for (String line : configured.getLoreOverride()) {
+            // These are filled in when a fish is caught, there is nothing to show for them here.
+            if (line.contains("{fisherman_lore}") || line.contains("{length_lore}") || line.contains("{fish_lore}")) {
+                continue;
+            }
+            own.add(ComponentMessage.componentMessage(LegacyText.toMiniMessage(line)).get().decoration(TextDecoration.ITALIC, false));
+        }
+
+        boolean hasToken = lore.stream().anyMatch(line -> plain.serialize(line).contains(FISH_LORE));
+        List<Component> out = new ArrayList<>(lore.size() + own.size() + 1);
+        if (!hasToken && !own.isEmpty()) {
+            out.addAll(own);
+            out.add(Component.empty());
+        }
+        for (Component line : lore) {
+            if (plain.serialize(line).contains(FISH_LORE)) {
+                out.addAll(own);
+            } else {
+                out.add(line);
             }
         }
         return out;
