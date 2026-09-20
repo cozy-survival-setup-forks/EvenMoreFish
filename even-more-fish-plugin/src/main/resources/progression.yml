@@ -25,8 +25,15 @@ progression:
     # Placeholders: <level> and <points> (unspent skill points).
     message: "<gold>Fishing level up! You are now level <yellow><level></yellow> and have <yellow><points></yellow> skill points."
 
-  # Skills bought with skill points. Effects: sell-bonus (% more money from fish),
-  # xp-boost (% more fishing XP) and special-boost (extra multiplier on the special fish).
+  # Shown when the double catch skill gives an extra fish.
+  double-catch-message: "<green>Double catch! You got an extra fish."
+
+  # Skills bought with skill points. Effects:
+  #   sell-bonus     % more money from fish
+  #   xp-boost       % more fishing XP
+  #   special-boost  extra multiplier on the special fish
+  #   fast-bite      % shorter wait for a bite (capped at 80%)
+  #   double-catch   % chance to get an extra fish with a catch
   skills:
     merchant:
       name: "Master Merchant"
@@ -52,6 +59,38 @@ progression:
       per-level: 0.1
       max-level: 5
       cost: 2
+    fast-hands:
+      name: "Fast Hands"
+      description: "Fish bite sooner."
+      icon: fishing_rod
+      effect: fast-bite
+      per-level: 4.0
+      max-level: 10
+      cost: 1
+    double-catch:
+      name: "Double Catch"
+      description: "A chance to reel in an extra fish."
+      icon: heart_of_the_sea
+      effect: double-catch
+      per-level: 2.5
+      max-level: 10
+      cost: 2
+    big-spender:
+      name: "Trade Secrets"
+      description: "An even better price on every fish."
+      icon: emerald
+      effect: sell-bonus
+      per-level: 1.0
+      max-level: 5
+      cost: 3
+    deep-thinker:
+      name: "Deep Thinker"
+      description: "Big catches teach you a lot."
+      icon: enchanted_book
+      effect: xp-boost
+      per-level: 10.0
+      max-level: 5
+      cost: 3
 
 # One fish is picked as the special fish and sells for more until the timer runs out.
 special-fish:
@@ -64,4 +103,4 @@ special-fish:
 
 # ATTENTION ATTENTION ATTENTION
 # DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
-version: 1
+version: 2

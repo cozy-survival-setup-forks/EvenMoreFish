@@ -31,18 +31,19 @@ skill:
     - "<gray>{description}"
     - ""
     - "<gray>▸ Level: <yellow>{level}<gray>/<yellow>{max-level}"
-    - "<gray>▸ Effect: <green>{effect}"
-    - "<gray>▸ Current bonus: <green>{current-bonus}"
-    - "<gray>▸ Per level: <green>{per-level}"
-    - "<gray>▸ Cost: <aqua>{cost} skill points"
+    - "<gray>▸ Now: <green>{current-effect}"
+    - "<gray>▸ Per level: <green>{per-level-effect}"
+    - "<gray>▸ Cost: <aqua>{cost} skill point(s)"
     - ""
   buy-line: "<yellow>» Click to upgrade."
   maxed-line: "<green>Fully upgraded!"
-  # What each kind of skill does, shown as "Effect".
+  # What each kind of skill does. {bonus} is replaced with the number.
   effects:
-    sell-bonus: "% more money from fish"
-    xp-boost: "% more fishing XP"
-    special-boost: "extra on the special fish multiplier"
+    sell-bonus: "+{bonus}% money from fish"
+    xp-boost: "+{bonus}% fishing XP"
+    special-boost: "+{bonus}x special fish multiplier"
+    fast-bite: "{bonus}% faster bites"
+    double-catch: "{bonus}% chance of an extra fish"
 
 messages:
   bought: "<green>You upgraded <yellow>{name}<green>!"
@@ -62,4 +63,4 @@ exit:
 
 # ATTENTION ATTENTION ATTENTION
 # DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
-version: 1
+version: 2

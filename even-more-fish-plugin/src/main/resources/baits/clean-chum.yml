@@ -1,0 +1,16 @@
+id: cleanChum
+disabled: false
+silent: false
+
+item:
+  material: BONE_MEAL
+  displayname: <white>Clean Chum
+  lore:
+    - <gray>Less junk, more Common fish.
+format: <white>{name}</white>
+rarity-modifiers:
+  Junk: "/3"
+  Common: "*1.5"
+catch-weight: 30
+application-weight: 80
+max-baits: 64

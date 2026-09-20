@@ -1,0 +1,16 @@
+id: glowWorm
+disabled: false
+silent: false
+
+item:
+  material: GLOW_BERRIES
+  displayname: <#ffd166>Glow Worm
+  lore:
+    - <gray>Rare fish love the glow.
+  glowing: true
+format: <#ffd166>{name}</#ffd166>
+rarity-modifiers:
+  Rare: "*2"
+catch-weight: 20
+application-weight: 60
+max-baits: 32

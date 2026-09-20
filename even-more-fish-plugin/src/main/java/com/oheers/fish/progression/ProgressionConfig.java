@@ -18,7 +18,7 @@ import java.util.Optional;
 public class ProgressionConfig extends ConfigBase {
 
     /** What a skill does for the player who owns it. */
-    public enum Effect { SELL_BONUS, XP_BOOST, SPECIAL_BOOST }
+    public enum Effect { SELL_BONUS, XP_BOOST, SPECIAL_BOOST, FAST_BITE, DOUBLE_CATCH }
 
     public record Skill(@NonNull String id, @NonNull String name, @NonNull String description,
                         @NonNull Material icon, int maxLevel, int cost, @NonNull Effect effect, double perLevel) {
@@ -100,6 +100,10 @@ public class ProgressionConfig extends ConfigBase {
 
     public double specialFishMultiplier() {
         return Math.max(1.0D, getConfig().getDouble("special-fish.multiplier", 1.5D));
+    }
+
+    public @NonNull String doubleCatchMessage() {
+        return getConfig().getString("progression.double-catch-message", "");
     }
 
     public long specialFishResetMinutes() {

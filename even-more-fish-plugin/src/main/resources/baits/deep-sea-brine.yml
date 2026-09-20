@@ -1,0 +1,19 @@
+id: deepSeaBrine
+disabled: false
+silent: false
+
+item:
+  material: PRISMARINE_CRYSTALS
+  displayname: <#00b4d8>Deep Sea Brine
+  lore:
+    - <gray>Boosts every fish worth
+    - <gray>bragging about.
+  glowing: true
+format: <#00b4d8>{name}</#00b4d8>
+rarity-modifiers:
+  Rare: "*2"
+  Epic: "*2"
+  Legendary: "*2"
+catch-weight: 1
+application-weight: 20
+max-baits: 8

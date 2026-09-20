@@ -1,0 +1,17 @@
+id: pearlPaste
+disabled: false
+silent: false
+
+item:
+  material: ENDER_EYE
+  displayname: <#b5179e>Pearl Paste
+  lore:
+    - <gray>Boosts Epic & Legendary fish.
+  glowing: true
+format: <#b5179e>{name}</#b5179e>
+rarity-modifiers:
+  Epic: "*2"
+  Legendary: "*2"
+catch-weight: 3
+application-weight: 30
+max-baits: 24

@@ -1,0 +1,16 @@
+id: kelpMash
+disabled: false
+silent: false
+
+item:
+  material: DRIED_KELP
+  displayname: <#52b788>Kelp Mash
+  lore:
+    - <gray>A cheap bait that brings
+    - <gray>in more Common fish.
+format: <#52b788>{name}</#52b788>
+rarity-modifiers:
+  Common: "+50"
+catch-weight: 40
+application-weight: 100
+max-baits: 64

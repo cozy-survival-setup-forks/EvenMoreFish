@@ -71,9 +71,12 @@ public class SkillTreeGui extends ConfigGui {
             values.put("{level}", Integer.toString(level));
             values.put("{max-level}", Integer.toString(skill.maxLevel()));
             values.put("{cost}", Integer.toString(skill.cost()));
+            String template = section.getString("effects." + skill.effect().name().toLowerCase(Locale.ROOT).replace('_', '-'), "{bonus}");
             values.put("{current-bonus}", format(skill.perLevel() * level));
             values.put("{per-level}", format(skill.perLevel()));
-            values.put("{effect}", section.getString("effects." + skill.effect().name().toLowerCase(Locale.ROOT).replace('_', '-'), ""));
+            values.put("{current-effect}", template.replace("{bonus}", format(skill.perLevel() * level)));
+            values.put("{per-level-effect}", template.replace("{bonus}", format(skill.perLevel())));
+            values.put("{effect}", template.replace("{bonus}", format(skill.perLevel())));
 
             List<String> lore = new ArrayList<>();
             for (String line : section.getStringList("lines")) {

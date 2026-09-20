@@ -1,0 +1,17 @@
+id: caveGrubs
+disabled: false
+silent: false
+
+item:
+  material: SPIDER_EYE
+  displayname: <#9d8189>Cave Grubs
+  lore:
+    - <gray>Attracts Rare fish and
+    - <gray>scares off some of the junk.
+format: <#9d8189>{name}</#9d8189>
+rarity-modifiers:
+  Rare: "*2"
+  Junk: "/2"
+catch-weight: 15
+application-weight: 50
+max-baits: 32

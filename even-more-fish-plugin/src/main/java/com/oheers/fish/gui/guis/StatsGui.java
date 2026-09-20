@@ -13,7 +13,6 @@ import com.oheers.fish.database.model.user.UserReport;
 import com.oheers.fish.fishing.items.FishManager;
 import com.oheers.fish.gui.ConfigGui;
 import com.oheers.fish.gui.InfoItems;
-import com.oheers.fish.messages.ConfigMessage;
 import com.oheers.fish.messages.EMFSingleMessage;
 import com.oheers.fish.progression.LevelCurve;
 import com.oheers.fish.progression.ProgressionConfig;
@@ -40,7 +39,8 @@ public class StatsGui extends ConfigGui {
     /** Loads the player's statistics off the server thread first, then opens the menu. */
     public static void openAsync(@NonNull Player player) {
         if (!DatabaseUtil.isDatabaseOnline()) {
-            ConfigMessage.JOURNAL_DISABLED.getMessage().send(player);
+            // Levels and skills live on the player, so those still work.
+            new StatsGui(player, -1).open();
             return;
         }
         EvenMoreFish plugin = EvenMoreFish.getInstance();
@@ -101,7 +101,8 @@ public class StatsGui extends ConfigGui {
             return;
         }
         var dataManager = EvenMoreFish.getInstance().getPluginDataManager();
-        UserReport report = dataManager.getUserReportDataManager().peek(player.getUniqueId().toString());
+        boolean hasData = userId >= 0;
+        UserReport report = hasData ? dataManager.getUserReportDataManager().peek(player.getUniqueId().toString()) : null;
 
         List<String> rarityLines = new ArrayList<>();
         long total = 0;
@@ -111,7 +112,7 @@ public class StatsGui extends ConfigGui {
                 continue;
             }
             long caught = 0;
-            for (IFish fish : rarity.getFishList()) {
+            for (IFish fish : hasData ? rarity.getFishList() : List.<IFish>of()) {
                 UserFishStats stats = dataManager.getUserFishStatsDataManager().peek(UserFishRarityKey.of(userId, fish).toString());
                 if (stats != null) {
                     caught += stats.getQuantity();

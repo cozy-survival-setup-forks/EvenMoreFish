@@ -1,0 +1,17 @@
+id: goldenMinnow
+disabled: false
+silent: false
+
+item:
+  material: GOLD_NUGGET
+  displayname: <gold>Golden Minnow
+  lore:
+    - <gray>A shiny snack that lures
+    - <gray>Legendary fish.
+  glowing: true
+format: <gold>{name}</gold>
+rarity-modifiers:
+  Legendary: "*3"
+catch-weight: 1
+application-weight: 60
+max-baits: 16

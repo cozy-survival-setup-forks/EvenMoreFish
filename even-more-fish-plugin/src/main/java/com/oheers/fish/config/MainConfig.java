@@ -192,7 +192,7 @@ public class MainConfig extends ConfigBase {
     }
 
     public boolean databaseEnabled() {
-        return getConfig().getBoolean("database.enabled", false);
+        return getConfig().getBoolean("database.enabled", true);
     }
 
     public String getAddress() {

@@ -65,7 +65,7 @@ respect-vanished: true
 # of this feature.
 # ATTENTION: Toggling this requires a full server restart.
 database:
-  enabled: false
+  enabled: true
   # Prevents verbose output when the plugin interacts with the database.
   disable-verbose: true
   # Available option are: mysql, sqlite
