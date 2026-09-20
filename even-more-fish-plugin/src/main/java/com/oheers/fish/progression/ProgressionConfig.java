@@ -102,6 +102,10 @@ public class ProgressionConfig extends ConfigBase {
         return Math.max(1.0D, getConfig().getDouble("special-fish.multiplier", 1.5D));
     }
 
+    public @NonNull String message(@NonNull String key) {
+        return getConfig().getString("progression.messages." + key, "");
+    }
+
     public @NonNull String doubleCatchMessage() {
         return getConfig().getString("progression.double-catch-message", "");
     }

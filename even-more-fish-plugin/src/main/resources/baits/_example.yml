@@ -47,6 +47,8 @@ purchase:
   # The price this bait can be purchased for.
   # This can be set to 0 to make the bait free. -1 will disable purchasing.
   price: 50
+  # Optional: buy this bait with fishing skill points as well (-1 or missing disables it).
+  skill-points: 3
   # The amount of this bait that is given when purchased.
   # This is automatically limited to the maximum stack size of the item.
   quantity: 1

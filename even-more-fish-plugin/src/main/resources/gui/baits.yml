@@ -19,6 +19,12 @@ sort-type: alphabetical
 purchase-lore:
   - Click to purchase {quantity}x {bait} for {price}
 
+# The lore to use when a bait can be bought with fishing skill points ("purchase.skill-points" in the bait file).
+# When a bait can be bought both ways, right-click pays with skill points.
+# Supported variables: {quantity}, {points}, {bait}
+purchase-points-lore:
+  - "<yellow>Click to buy {quantity}x {bait} for <aqua>{points} skill points"
+
 exit:
   item:
     material: pufferfish

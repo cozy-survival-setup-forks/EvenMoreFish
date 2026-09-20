@@ -24,3 +24,7 @@ catch-weight: 100
 application-weight: 150
 # How many of this bait can be applied to a rod at once?
 max-baits: 100
+purchase:
+  # Bought with fishing skill points. Add "price" for a money price too.
+  skill-points: 2
+  quantity: 16

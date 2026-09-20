@@ -12,3 +12,7 @@ rarity-modifiers:
 catch-weight: 20
 application-weight: 40
 max-baits: 16
+purchase:
+  # Bought with fishing skill points. Add "price" for a money price too.
+  skill-points: 2
+  quantity: 8

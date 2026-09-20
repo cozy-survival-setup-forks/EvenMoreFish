@@ -13,14 +13,15 @@ import de.themoep.inventorygui.DynamicGuiElement;
 import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.StaticGuiElement;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jspecify.annotations.NonNull;
-import uk.firedev.daisylib.messages.message.ComponentListMessage;
 import uk.firedev.daisylib.messages.message.ComponentMessage;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -75,7 +76,14 @@ public class BaitsGui extends ConfigGui {
                     ConfigMessage.BAIT_CONFIRM_PURCHASE.getMessage().send(player);
                     return true;
                 }
-                bait.attemptPurchase(player);
+                boolean points = bait.isPurchasableWithSkillPoints();
+                boolean money = bait.isPurchasableWithMoney();
+                // With both on offer, right-click pays with skill points and left-click with money.
+                if (points && (!money || click.getType().isRightClick())) {
+                    bait.attemptSkillPointPurchase(player);
+                } else {
+                    bait.attemptPurchase(player);
+                }
                 // Quarter-second cooldown to prevent spam and accidents.
                 cooldown.applyCooldown(uuid, Duration.ofMillis(250));
                 return true;
@@ -94,19 +102,30 @@ public class BaitsGui extends ConfigGui {
     }
 
     private void applyLore(@NonNull ItemMeta meta, @NonNull BaitHandler bait) {
+        List<Component> lore = new ArrayList<>();
+
         Economy economy = bait.getEconomy();
-        if (economy == null || economy.isEmpty()) {
-            return;
-        }
         List<String> loreFormat = getPurchaseLoreFormat();
-        if (loreFormat.isEmpty()) {
-            return;
+        if (economy != null && !economy.isEmpty() && !loreFormat.isEmpty()) {
+            lore.addAll(ComponentMessage.componentMessage(loreFormat)
+                .replace("{quantity}", bait.getPurchaseQuantity())
+                .replace("{price}", economy.getWorthFormat(bait.getPurchasePrice(), false))
+                .replace("{bait}", bait.getDisplayName())
+                .get());
         }
-        ComponentListMessage purchaseLore = ComponentMessage.componentMessage(loreFormat)
-            .replace("{quantity}", bait.getPurchaseQuantity())
-            .replace("{price}", economy.getWorthFormat(bait.getPurchasePrice(), false))
-            .replace("{bait}", bait.getDisplayName());
-        meta.lore(purchaseLore.get());
+
+        List<String> pointsFormat = getGuiConfig().getStringList("purchase-points-lore");
+        if (bait.isPurchasableWithSkillPoints() && !pointsFormat.isEmpty()) {
+            lore.addAll(ComponentMessage.componentMessage(pointsFormat)
+                .replace("{quantity}", Math.max(1, bait.getPurchaseQuantity()))
+                .replace("{points}", bait.getSkillPointPrice())
+                .replace("{bait}", bait.getDisplayName())
+                .get());
+        }
+
+        if (!lore.isEmpty()) {
+            meta.lore(lore);
+        }
     }
 
     private boolean requireConfirmation(@NonNull UUID uuid) {

@@ -10,3 +10,7 @@ application-weight: 7
 rarity-modifiers:
   Epic: "*2"
 max-baits: 64
+purchase:
+  # Bought with fishing skill points. Add "price" for a money price too.
+  skill-points: 3
+  quantity: 8

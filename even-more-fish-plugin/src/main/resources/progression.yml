@@ -25,6 +25,13 @@ progression:
     # Placeholders: <level> and <points> (unspent skill points).
     message: "<gold>Fishing level up! You are now level <yellow><level></yellow> and have <yellow><points></yellow> skill points."
 
+  # Baits can be bought with skill points too, set "purchase.skill-points" in a bait file.
+  # Placeholders: <bait>, <amount>, <points> (the price) and <have> (points the player has).
+  messages:
+    bait-purchased: "<green>You bought <yellow><amount>x <bait></yellow> for <aqua><points></aqua> skill points."
+    bait-not-enough-points: "<red>That bait costs <aqua><points></aqua> skill points and you have <aqua><have></aqua>."
+    bait-not-for-sale: "<red>That bait cannot be bought with skill points."
+
   # Shown when the double catch skill gives an extra fish.
   double-catch-message: "<green>Double catch! You got an extra fish."
 
@@ -103,4 +110,4 @@ special-fish:
 
 # ATTENTION ATTENTION ATTENTION
 # DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
-version: 2
+version: 3

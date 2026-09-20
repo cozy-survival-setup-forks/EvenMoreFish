@@ -34,7 +34,8 @@ import org.bukkit.persistence.PersistentDataType;
  */
 public class BaitApplicationListener implements Listener {
 
-    @EventHandler
+    // Ignore clicks another plugin already cancelled, or the bait could be used up twice.
+    @EventHandler(ignoreCancelled = true)
     public void onClickEvent(InventoryClickEvent event) {
         ItemStack potentialFishingRod = event.getCurrentItem();
         ItemStack cursor = event.getCursor();
@@ -78,14 +79,8 @@ public class BaitApplicationListener implements Listener {
         updateNbt(potentialFishingRod);
 
         try {
-            if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-                result = BaitNBTManager.applyBaitedRodNBT(potentialFishingRod, bait, event.getCursor().getAmount());
-                EvenMoreFish.getInstance().getMetricsManager().incrementBaitsApplied(event.getCursor().getAmount());
-            } else {
-                result = BaitNBTManager.applyBaitedRodNBT(potentialFishingRod, bait, 1);
-                EvenMoreFish.getInstance().getMetricsManager().incrementBaitsApplied(1);
-            }
-
+            int wanted = event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY ? cursor.getAmount() : 1;
+            result = BaitNBTManager.applyBaitedRodNBT(potentialFishingRod, bait, wanted);
         } catch (MaxBaitsReachedException exception) {
             ConfigMessage.BAITS_MAXED.getMessage().send(event.getWhoClicked());
             result = exception.getRecoveryResult();
@@ -104,13 +99,18 @@ public class BaitApplicationListener implements Listener {
         event.setCancelled(true);
         event.setCurrentItem(resultRod);
 
-        int cursorModifier = result.cursorItemModifier();
+        // The modifier is negative: how many baits left the cursor. Never take more than it holds.
+        int used = Math.min(cursor.getAmount(), Math.max(0, -result.cursorItemModifier()));
+        if (used > 0) {
+            EvenMoreFish.getInstance().getMetricsManager().incrementBaitsApplied(used);
+        }
 
-        if (cursor.getAmount() - cursorModifier == 0) {
+        if (cursor.getAmount() - used <= 0) {
             event.getWhoClicked().setItemOnCursor(new ItemStack(Material.AIR));
         } else {
-            cursor.setAmount(cursor.getAmount() + cursorModifier);
-            event.getWhoClicked().setItemOnCursor(cursor);
+            ItemStack remaining = cursor.clone();
+            remaining.setAmount(cursor.getAmount() - used);
+            event.getWhoClicked().setItemOnCursor(remaining);
         }
     }
 

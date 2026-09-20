@@ -34,6 +34,10 @@ public final class ProgressionManager {
         return new NamespacedKey(EvenMoreFish.getInstance(), "fishing_xp");
     }
 
+    private static NamespacedKey baitSpendKey() {
+        return new NamespacedKey(EvenMoreFish.getInstance(), "bait_points_spent");
+    }
+
     private static NamespacedKey skillKey(@NonNull String id) {
         return new NamespacedKey(EvenMoreFish.getInstance(), "skill_" + id.toLowerCase(Locale.ROOT));
     }
@@ -56,7 +60,7 @@ public final class ProgressionManager {
         for (ProgressionConfig.Skill skill : ProgressionConfig.getInstance().skills()) {
             spent += getSkillLevel(player, skill.id()) * skill.cost();
         }
-        return spent;
+        return spent + Optional.ofNullable(player.getPersistentDataContainer().get(baitSpendKey(), PersistentDataType.INTEGER)).orElse(0);
     }
 
     public int getAvailablePoints(@NonNull Player player) {
@@ -115,10 +119,22 @@ public final class ProgressionManager {
         return BuyResult.BOUGHT;
     }
 
+    /** Spends skill points on something other than a skill, such as baits. False if there are not enough. */
+    public boolean spendPoints(@NonNull Player player, int points) {
+        if (points < 0 || getAvailablePoints(player) < points) {
+            return false;
+        }
+        PersistentDataContainer data = player.getPersistentDataContainer();
+        int spent = Optional.ofNullable(data.get(baitSpendKey(), PersistentDataType.INTEGER)).orElse(0);
+        data.set(baitSpendKey(), PersistentDataType.INTEGER, spent + points);
+        return true;
+    }
+
     /** Clears a player's XP and skills. */
     public void reset(@NonNull Player player) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.remove(xpKey());
+        data.remove(baitSpendKey());
         ProgressionConfig.getInstance().skills().forEach(skill -> data.remove(skillKey(skill.id())));
     }
 

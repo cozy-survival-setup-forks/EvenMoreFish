@@ -6,6 +6,10 @@ import com.oheers.fish.api.Logging;
 import com.oheers.fish.api.baits.IBait;
 import com.oheers.fish.config.ConfigBase;
 import com.oheers.fish.api.economy.Economy;
+import com.oheers.fish.progression.ProgressionConfig;
+import com.oheers.fish.progression.ProgressionManager;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import com.oheers.fish.api.economy.EconomyType;
 import com.oheers.fish.api.fishing.FishingType;
 import com.oheers.fish.api.fishing.items.IFish;
@@ -771,6 +775,54 @@ public class BaitHandler extends ConfigBase implements IBait, Sortable {
         message.send(player);
 
         return true;
+    }
+
+    /** What the bait costs in skill points, or -1 if it cannot be bought with them. */
+    public int getSkillPointPrice() {
+        return getConfig().getInt("purchase.skill-points", -1);
+    }
+
+    public boolean isPurchasableWithMoney() {
+        return economy != null && !economy.isEmpty() && getPurchasePrice() > -1.0D && getPurchaseQuantity() > 0;
+    }
+
+    public boolean isPurchasableWithSkillPoints() {
+        return ProgressionConfig.getInstance().isEnabled() && getSkillPointPrice() >= 0;
+    }
+
+    /** Buys the bait with fishing skill points, the same points the skill tree uses. */
+    public boolean attemptSkillPointPurchase(@NonNull Player player) {
+        ProgressionConfig progression = ProgressionConfig.getInstance();
+        if (!isPurchasableWithSkillPoints()) {
+            sendProgressionMessage(player, progression.message("bait-not-for-sale"), 0, 0, 0);
+            return false;
+        }
+        int price = getSkillPointPrice();
+        int quantity = Math.max(1, getPurchaseQuantity());
+        int have = ProgressionManager.getInstance().getAvailablePoints(player);
+        if (!ProgressionManager.getInstance().spendPoints(player, price)) {
+            sendProgressionMessage(player, progression.message("bait-not-enough-points"), price, have, 0);
+            return false;
+        }
+
+        ItemStack baitItem = create(player);
+        int finalQuantity = Math.min(baitItem.getMaxStackSize(), quantity);
+        baitItem.setAmount(finalQuantity);
+        FishUtils.giveItem(baitItem, player);
+        sendProgressionMessage(player, progression.message("bait-purchased"), price, have, finalQuantity);
+        return true;
+    }
+
+    private void sendProgressionMessage(Player player, String template, int price, int have, int amount) {
+        if (template.isEmpty()) {
+            return;
+        }
+        player.sendMessage(MiniMessage.miniMessage().deserialize(template,
+            Placeholder.parsed("bait", getDisplayName()),
+            Placeholder.unparsed("points", Integer.toString(price)),
+            Placeholder.unparsed("have", Integer.toString(have)),
+            Placeholder.unparsed("amount", Integer.toString(amount))
+        ));
     }
 
     private @NonNull NamespacedKey getRecipeKey() {
