@@ -1,5 +1,6 @@
 package com.oheers.fish.gui.guis;
 
+import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.api.Logging;
@@ -121,7 +122,7 @@ public class FishJournalGui extends ConfigGui {
     }
 
     private GuiElement getFishGroup(Section section) {
-        char character = FishUtils.getCharFromString(section.getString("fish-character"), 'f');
+        char character = SlotLayout.groupCharacter(section, "fish-character", "fish-slots", 'f');
 
         GuiElementGroup group = new GuiElementGroup(character);
         sortType.sort(this.rarity.getFishList()).forEach(fish -> {
@@ -257,7 +258,7 @@ public class FishJournalGui extends ConfigGui {
 
 
     private GuiElement getRarityGroup(Section section) {
-        char character = FishUtils.getCharFromString(section.getString("rarity-character"), 'r');
+        char character = SlotLayout.groupCharacter(section, "rarity-character", "rarity-slots", 'r');
 
         GuiElementGroup group = new GuiElementGroup(character);
         sortType.sort(FishManager.getInstance().getRarityMap().values()).forEach(rarity -> {

@@ -1,14 +1,12 @@
 # Configuration for the confirmation Sell GUI, shown when /emf shop is used, after clicking a sell button.
 
 title: <#006F86>EvenMoreFish - Sell Fish (Confirm)
-layout:
-  - "iiiiiiiii"
-  - "iiiiiiiii"
-  - "iiiiiiiii"
-  - "   s a   "
+# Items are placed by slot number, starting at 0 in the top left. A slot can be a number,
+# a range like "10-16", or a list of those. Empty slots get the filler item.
+rows: 4
 filler: light_blue_stained_glass_pane
-# The character to use for the slots where players can place fish.
-deposit-character: i
+# The slots to use for the slots where players can place fish.
+deposit-slots: ["0-26"]
 
 sell-item:
   item:
@@ -22,7 +20,7 @@ sell-item:
       - ''
       - <yellow>» (Left-click) sell the fish.
       - <gray>» (Right-click) cancel.
-  character: s
+  slot: 30
   click-action:
     left: sell-shop-confirm
     right: full-exit
@@ -40,7 +38,7 @@ sell-all-item:
       - ''
       - <yellow>» (Left-click) sell the fish.
       - <gray>» (Right-click) cancel.
-  character: a
+  slot: 32
   click-action:
     left: sell-inventory-confirm
     right: full-exit

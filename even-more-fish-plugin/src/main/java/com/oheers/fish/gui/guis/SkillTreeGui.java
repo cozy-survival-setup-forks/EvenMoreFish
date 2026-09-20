@@ -1,5 +1,6 @@
 package com.oheers.fish.gui.guis;
 
+import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.config.gui.impl.SkillsGuiConfig;
 import com.oheers.fish.gui.ConfigGui;
 import com.oheers.fish.gui.InfoItems;
@@ -123,8 +124,7 @@ public class SkillTreeGui extends ConfigGui {
     }
 
     private static char character(Section section, char fallback) {
-        String value = section.getString("character", String.valueOf(fallback));
-        return value.isEmpty() ? fallback : value.charAt(0);
+        return SlotLayout.itemCharacter(section, fallback);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.oheers.fish.gui.guis;
 
+import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.api.Logging;
 import com.oheers.fish.api.fishing.items.IFish;
@@ -154,8 +155,7 @@ public class StatsGui extends ConfigGui {
     }
 
     private static char firstCharacter(Section section, char fallback) {
-        String value = section.getString("character", String.valueOf(fallback));
-        return value.isEmpty() ? fallback : value.charAt(0);
+        return SlotLayout.itemCharacter(section, fallback);
     }
 
     private static String legacyName(IRarity rarity) {

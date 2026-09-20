@@ -23,6 +23,9 @@ public abstract class GuiConfig extends ConfigBase {
     }
 
     public @NonNull String @NonNull [] getLayout() {
+        if (SlotLayout.isSlotBased(getConfig())) {
+            return SlotLayout.of(getConfig()).getRows();
+        }
         return getConfig().getStringList("layout").stream()
             .filter(Objects::nonNull)
             .limit(6)

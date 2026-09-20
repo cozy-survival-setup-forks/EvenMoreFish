@@ -1,5 +1,6 @@
 package com.oheers.fish.gui.guis;
 
+import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.Checks;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
@@ -47,7 +48,7 @@ public class ApplyBaitsGui extends ConfigGui {
 
         Section config = getGuiConfig();
         if (config != null) {
-            getGui().addElement(new GuiStorageElement(FishUtils.getCharFromString(getGuiConfig().getString("bait-character", "b"), 'b'), this.baitInventory));
+            getGui().addElement(new GuiStorageElement(SlotLayout.groupCharacter(getGuiConfig(), "bait-character", "bait-slots", 'b'), this.baitInventory));
         }
     }
 

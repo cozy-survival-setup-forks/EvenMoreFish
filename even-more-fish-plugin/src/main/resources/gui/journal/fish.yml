@@ -1,16 +1,12 @@
 # Configuration for the Journal GUI, shown after clicking the journal button in /emf gui, after selecting a rarity.
 
 title: <#006F86>EvenMoreFish - Fish Journal
-layout:
-  - "    a    "
-  - " fffffff "
-  - " fffffff "
-  - " fffffff "
-  - " fffffff "
-  - "p   x   n"
+# Items are placed by slot number, starting at 0 in the top left. A slot can be a number,
+# a range like "10-16", or a list of those. Empty slots get the filler item.
+rows: 6
 filler: gray_stained_glass_pane
-# The character to use for fish items
-fish-character: f
+# The slots to use for fish items
+fish-slots: ["10-16", "19-25", "28-34", "37-43"]
 
 # How to sort the fish. Valid options are: alphabetical, weight, index. (Default: alphabetical)
 sort-type: alphabetical
@@ -64,7 +60,7 @@ info:
     displayname: <red>Information
     lore:
       - <yellow>This page shows all the {rarity} fish you have caught.
-  character: a
+  slot: 4
 
 exit:
   item:
@@ -73,7 +69,7 @@ exit:
     lore:
       - <yellow>Exit to the Menu
   glowing: true
-  character: x
+  slot: 49
   click-action: open-journal-menu
 
 # Page Buttons
@@ -88,7 +84,7 @@ next-page:
     displayname: <aqua>Next Page
     lore:
       - <yellow>You are on the last page
-  character: n
+  slot: 53
   page-action: next
 
 last-page:
@@ -102,7 +98,6 @@ last-page:
     displayname: <aqua>Last Page
     lore:
       - <yellow>You are on the last page
-  character: l
   page-action: last
 
 previous-page:
@@ -116,7 +111,7 @@ previous-page:
     displayname: <aqua>Previous Page
     lore:
       - <yellow>You are on the first page
-  character: p
+  slot: 45
   page-action: previous
 
 first-page:
@@ -130,7 +125,7 @@ first-page:
     displayname: <aqua>First Page
     lore:
       - <yellow>You are on the first page
-  character: f
+  slots: ["10-16", "19-25", "28-34", "37-43"]
   page-action: first
 
 # ATTENTION ATTENTION ATTENTION

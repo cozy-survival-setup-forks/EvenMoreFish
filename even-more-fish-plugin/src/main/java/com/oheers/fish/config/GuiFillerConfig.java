@@ -1,5 +1,6 @@
 package com.oheers.fish.config;
 
+import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.gui.ConfigGui;
@@ -45,7 +46,7 @@ public class GuiFillerConfig extends ConfigBase {
     }
 
     private StaticGuiElement getGuiItem(@NonNull ConfigGui gui, @NonNull Section itemSection) {
-        char character = FishUtils.getCharFromString(itemSection.getString("character", "#"), '#');
+        char character = SlotLayout.fillerCharacter(itemSection);
         if (character == '#') {
             return null;
         }

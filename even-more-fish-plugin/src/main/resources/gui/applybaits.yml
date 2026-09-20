@@ -1,14 +1,12 @@
 # Configuration for the Main Menu GUI, shown when /emf applybaits is used.
 
 title: <#006F86>EvenMoreFish - Apply Baits
-layout:
-  - "bbbbbbbbb"
-  - "bbbbbbbbb"
-  - "bbbbbbbbb"
-  - "    x    "
+# Items are placed by slot number, starting at 0 in the top left. A slot can be a number,
+# a range like "10-16", or a list of those. Empty slots get the filler item.
+rows: 4
 filler: light_blue_stained_glass_pane
-# The character to use for the bait slots.
-bait-character: b
+# The slots to use for the bait slots.
+bait-slots: ["0-26"]
 
 exit:
   item:
@@ -17,7 +15,7 @@ exit:
     lore:
       - <yellow>Exit to the Menu
   glowing: true
-  character: x
+  slot: 31
   click-action: full-exit
 
 # ATTENTION ATTENTION ATTENTION

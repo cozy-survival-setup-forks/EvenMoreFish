@@ -1,5 +1,6 @@
 package com.oheers.fish.gui.guis;
 
+import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.api.sort.SortType;
@@ -53,7 +54,7 @@ public class BaitsGui extends ConfigGui {
     }
 
     private DynamicGuiElement getBaitsGroup(Section section) {
-        char character = FishUtils.getCharFromString(section.getString("bait-character", "b"), 'b');
+        char character = SlotLayout.groupCharacter(section, "bait-character", "bait-slots", 'b');
 
         return new DynamicGuiElement(character, who -> {
             GuiElementGroup group = new GuiElementGroup(character);

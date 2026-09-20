@@ -1,13 +1,17 @@
 # Configuration for the Main Menu GUI, shown when /emf gui is used.
 
 title: <#006F86>EvenMoreFish - Main Menu
-layout:
-  - "126515621"
-  - "23     32"
-  - "4 t s h 4"
-  - "4 j c k 4"
-  - "23  b  32"
-  - "1265x5621"
+# Items are placed by slot number, starting at 0 in the top left. A slot can be a number,
+# a range like "10-16", or a list of those. Empty slots get the filler item.
+rows: 6
+# Decorative fillers from gui-fillers.yml, by slot.
+fillers:
+  seagrass: [0, 4, 8, 45, 53]
+  light_blue_stained_glass_pane: [1, 7, 9, 17, 36, 44, 46, 52]
+  cyan_stained_glass_pane: [10, 16, 37, 43]
+  gray_stained_glass_pane: [18, 26, 27, 35]
+  kelp: [3, 5, 48, 50]
+  grass: [2, 6, 47, 51]
 # This should be the most used filler item.
 filler: black_stained_glass_pane
 
@@ -20,7 +24,7 @@ fish-toggle:
       - <gray>Click this button to
       - <gray>toggle custom fish.
       - ""
-  character: t
+  slot: 20
   click-action: fish-toggle
 
 open-shop:
@@ -32,7 +36,7 @@ open-shop:
       - <gray>Sell the fish you catch to
       - <gray>earn a bit of extra money.
       - ""
-  character: s
+  slot: 22
   click-action: open-shop
 
 help-button:
@@ -44,7 +48,7 @@ help-button:
       - <gray>Shows a list of commands
       - <gray>you can use for this plugin.
       - ""
-  character: h
+  slot: 24
   click-action: show-command-help
 
 open-baits:
@@ -55,7 +59,7 @@ open-baits:
       - ""
       - <gray>Shows all loaded baits
       - ""
-  character: b
+  slot: 40
   click-action: open-baits-menu
 
 open-journal:
@@ -68,7 +72,7 @@ open-journal:
       - <gray>fish and keep track of
       - <gray>the ones you have caught.
       - ""
-  character: j
+  slot: 29
   click-action: open-journal-menu
 
 open-stats:
@@ -80,7 +84,7 @@ open-stats:
       - <gray>See how many fish you have
       - <gray>caught, your level and more.
       - ""
-  character: c
+  slot: 31
   click-action: open-stats-menu
 
 open-skills:
@@ -92,7 +96,7 @@ open-skills:
       - <gray>Spend skill points earned
       - <gray>from fishing on bonuses.
       - ""
-  character: k
+  slot: 33
   click-action: open-skills-menu
 
 exit:
@@ -102,7 +106,7 @@ exit:
     lore:
       - <yellow>Exit to the Menu
   glowing: true
-  character: x
+  slot: 49
   click-action: full-exit
 
 # ATTENTION ATTENTION ATTENTION

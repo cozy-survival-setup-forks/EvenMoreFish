@@ -1,5 +1,6 @@
 package com.oheers.fish.gui;
 
+import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.api.fishing.items.IFish;
 import com.oheers.fish.api.fishing.items.IRarity;
@@ -192,7 +193,6 @@ public final class SellInfoItems {
     }
 
     private static char character(Section section, char fallback) {
-        String value = section.getString("character", String.valueOf(fallback));
-        return value.isEmpty() ? fallback : value.charAt(0);
+        return SlotLayout.itemCharacter(section, fallback);
     }
 }

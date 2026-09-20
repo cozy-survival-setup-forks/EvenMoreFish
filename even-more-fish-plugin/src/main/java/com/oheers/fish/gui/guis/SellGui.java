@@ -1,5 +1,6 @@
 package com.oheers.fish.gui.guis;
 
+import com.oheers.fish.config.gui.SlotLayout;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.api.economy.selling.SellHelper;
@@ -51,7 +52,7 @@ public class SellGui extends ConfigGui {
 
         Section config = getGuiConfig();
         if (config != null) {
-            getGui().addElement(new GuiStorageElement(FishUtils.getCharFromString(getGuiConfig().getString("deposit-character", "i"), 'i'), this.fishInventory));
+            getGui().addElement(new GuiStorageElement(SlotLayout.groupCharacter(getGuiConfig(), "deposit-character", "deposit-slots", 'i'), this.fishInventory));
         }
     }
 
