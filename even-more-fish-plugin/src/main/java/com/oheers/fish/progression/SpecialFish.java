@@ -2,6 +2,7 @@ package com.oheers.fish.progression;
 
 import com.oheers.fish.api.fishing.items.IFish;
 import com.oheers.fish.api.fishing.items.IRarity;
+import com.oheers.fish.fishing.items.Fish;
 import com.oheers.fish.fishing.items.FishManager;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NonNull;
@@ -86,7 +87,7 @@ public final class SpecialFish {
                 continue;
             }
             for (IFish candidate : rarity.getOriginalFishList()) {
-                if (candidate.getShowInJournal()) {
+                if (candidate.getShowInJournal() && (!(candidate instanceof Fish configured) || configured.canBeSpecial())) {
                     fish.add(candidate);
                 }
             }

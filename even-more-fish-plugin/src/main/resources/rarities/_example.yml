@@ -106,6 +106,20 @@ fish:
     item:
       material: tropical_fish
 
+    # How this fish is named in messages, menus and on the item. Defaults to the fish's id.
+    # The rarity's colour format is applied around it.
+    displayname: Example Fish
+
+    # Price of one centimetre of this fish. The sell price is length * worth-multiplier.
+    # This overrides the rarity's setting. Use set-worth below for an exact price instead.
+    worth-multiplier: 0.2
+
+    # Fishing XP this fish gives, instead of the amount set for its rarity in progression.yml.
+    xp: 10
+
+    # Can this fish be picked as the special fish, which sells for a bonus? (Default: true)
+    special-fish: true
+
     # The catch type for this fish. This overrides the rarity's value.
     catch-type: BOTH
 

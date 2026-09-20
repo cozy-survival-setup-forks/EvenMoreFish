@@ -1,6 +1,8 @@
 package com.oheers.fish.progression;
 
 import com.oheers.fish.api.events.EMFFishCaughtEvent;
+import com.oheers.fish.api.fishing.items.IFish;
+import com.oheers.fish.fishing.items.Fish;
 import com.oheers.fish.api.events.EMFFishHuntEvent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.FishHook;
@@ -24,7 +26,7 @@ public final class ProgressionListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onCatch(EMFFishCaughtEvent event) {
         Player player = event.getPlayer();
-        award(player, event.getFish().getRarity().getId());
+        award(player, event.getFish());
         rollDoubleCatch(player, event);
     }
 
@@ -65,10 +67,12 @@ public final class ProgressionListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onHunt(EMFFishHuntEvent event) {
-        award(event.getPlayer(), event.getFish().getRarity().getId());
+        award(event.getPlayer(), event.getFish());
     }
 
-    private void award(Player player, String rarityId) {
-        ProgressionManager.getInstance().addXp(player, ProgressionConfig.getInstance().xpFor(rarityId));
+    private void award(Player player, IFish fish) {
+        long override = fish instanceof Fish configured ? configured.getXpOverride() : -1L;
+        long xp = override >= 0 ? override : ProgressionConfig.getInstance().xpFor(fish.getRarity().getId());
+        ProgressionManager.getInstance().addXp(player, xp);
     }
 }

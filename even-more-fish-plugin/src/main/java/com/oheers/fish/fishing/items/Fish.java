@@ -196,6 +196,16 @@ public class Fish implements IFish {
         }
     }
 
+    /** Fishing XP set for this fish alone, or -1 to use the amount for its rarity. */
+    public long getXpOverride() {
+        return section.getLong("xp", -1L);
+    }
+
+    /** Whether this fish can be picked as the special fish. */
+    public boolean canBeSpecial() {
+        return section.getBoolean("special-fish", true);
+    }
+
     @Override
     public double getWorthMultiplier() {
         return section.getDouble("worth-multiplier", rarity.getWorthMultiplier());
