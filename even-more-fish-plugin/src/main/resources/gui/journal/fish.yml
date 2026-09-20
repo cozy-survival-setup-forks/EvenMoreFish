@@ -125,7 +125,6 @@ first-page:
     displayname: <aqua>First Page
     lore:
       - <yellow>You are on the first page
-  slots: ["10-16", "19-25", "28-34", "37-43"]
   page-action: first
 
 # ATTENTION ATTENTION ATTENTION

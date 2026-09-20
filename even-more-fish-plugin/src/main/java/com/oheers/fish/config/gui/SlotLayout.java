@@ -174,7 +174,7 @@ public final class SlotLayout {
         return result;
     }
 
-    static List<Integer> parse(Object raw) {
+    public static List<Integer> parse(Object raw) {
         List<Integer> slots = new ArrayList<>();
         collect(raw, slots);
         return slots;

@@ -2,16 +2,20 @@ package com.oheers.fish.gui;
 
 import com.oheers.fish.config.gui.SlotLayout;
 import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.dejvokep.boostedyaml.block.implementation.Section;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** The default menu files must be slot based and every slot must fit in the menu. */
@@ -38,6 +42,34 @@ class MenuSlotsTest {
             }
         }
         assertTrue(checked >= 9);
+    }
+
+    @Test
+    void noSlotIsUsedByTwoEntries() throws IOException {
+        try (Stream<Path> files = Files.walk(Path.of("src/main/resources/gui"))) {
+            for (Path file : files.filter(path -> path.toString().endsWith(".yml")).toList()) {
+                try (InputStream in = Files.newInputStream(file)) {
+                    YamlDocument doc = YamlDocument.create(in);
+                    Map<Integer, String> owners = new HashMap<>();
+                    for (String key : doc.getRoutesAsStrings(false)) {
+                        if (key.equals("fillers")) {
+                            continue;
+                        }
+                        Object value = doc.get(key);
+                        Object raw = null;
+                        if (value instanceof Section section) {
+                            raw = section.contains("slots") ? section.get("slots") : section.get("slot");
+                        } else if (key.endsWith("-slots")) {
+                            raw = value;
+                        }
+                        for (int slot : SlotLayout.parse(raw)) {
+                            String previous = owners.put(slot, key);
+                            assertNull(previous, file + ": slot " + slot + " is used by both " + previous + " and " + key);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Test
