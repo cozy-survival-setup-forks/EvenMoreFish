@@ -1,5 +1,6 @@
 package com.oheers.fish.items.config;
 
+import com.oheers.fish.messages.LegacyText;
 import net.kyori.adventure.text.Component;
 import org.bukkit.OfflinePlayer;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
@@ -28,7 +29,7 @@ public class LoreItemConfig extends ItemConfig<List<Component>> {
     @Override
     public List<Component> getConfiguredValue() {
         List<String> lore = section.getStringList("lore");
-        return lore.isEmpty() ? null : ComponentMessage.componentMessage(lore).get();
+        return lore.isEmpty() ? null : ComponentMessage.componentMessage(LegacyText.toMiniMessage(lore)).get();
     }
 
     @Override

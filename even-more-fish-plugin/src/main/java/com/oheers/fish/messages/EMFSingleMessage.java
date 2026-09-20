@@ -84,13 +84,13 @@ public class EMFSingleMessage extends EMFMessage {
 
     public static EMFSingleMessage fromString(@NonNull String string) {
         return new EMFSingleMessage(
-            ComponentMessage.componentMessage(string)
+            ComponentMessage.componentMessage(LegacyText.toMiniMessage(string))
         );
     }
 
     public static EMFSingleMessage fromStringList(@NonNull List<String> strings) {
         return new EMFSingleMessage(
-            ComponentMessage.componentMessage(strings).toSingleMessage()
+            ComponentMessage.componentMessage(LegacyText.toMiniMessage(strings)).toSingleMessage()
         );
     }
 

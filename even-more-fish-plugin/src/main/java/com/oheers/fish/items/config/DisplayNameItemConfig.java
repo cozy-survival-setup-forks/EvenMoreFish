@@ -1,5 +1,6 @@
 package com.oheers.fish.items.config;
 
+import com.oheers.fish.messages.LegacyText;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
 import net.kyori.adventure.text.Component;
 import org.bukkit.OfflinePlayer;
@@ -29,7 +30,7 @@ public class DisplayNameItemConfig extends ItemConfig<Component> {
     @Override
     public Component getConfiguredValue() {
         String string = section.getString("displayname");
-        return string == null ? null : ComponentMessage.componentMessage(string).get();
+        return string == null ? null : ComponentMessage.componentMessage(LegacyText.toMiniMessage(string)).get();
     }
 
     @Override
