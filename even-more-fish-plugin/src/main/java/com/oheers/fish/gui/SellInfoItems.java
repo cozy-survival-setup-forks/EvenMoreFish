@@ -7,6 +7,7 @@ import com.oheers.fish.fishing.items.FishManager;
 import com.oheers.fish.progression.SpecialFish;
 import de.themoep.inventorygui.StaticGuiElement;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
@@ -18,6 +19,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The price list and special fish items of the sell menu, plus the price, size and biome text the
@@ -100,6 +103,50 @@ public final class SellInfoItems {
             return "Any";
         }
         return String.join(", ", biomes.stream().map(SellInfoItems::prettify).distinct().toList());
+    }
+
+    private static final int BIOME_LINE_WIDTH = 34;
+
+    /**
+     * Swaps a lore line holding {biomes} for as many lines as the biome list needs, so a long list
+     * wraps instead of running off the screen. Other lines are left alone.
+     */
+    public static @NonNull List<Component> expandBiomeLines(@NonNull List<Component> lore, @NonNull IFish fish) {
+        return expandBiomeLines(lore, biomesText(fish));
+    }
+
+    static @NonNull List<Component> expandBiomeLines(@NonNull List<Component> lore, @NonNull String biomes) {
+        MiniMessage mini = MiniMessage.miniMessage();
+        List<Component> out = new ArrayList<>(lore.size());
+        for (Component component : lore) {
+            String line = mini.serialize(component);
+            int at = line.indexOf("{biomes}");
+            if (at < 0) {
+                out.add(component);
+                continue;
+            }
+            String prefix = line.substring(0, at);
+            String suffix = line.substring(at + "{biomes}".length());
+            Matcher tags = Pattern.compile("(<[^<>]+>)+$").matcher(prefix);
+            String carry = tags.find() ? tags.group() : "";
+
+            List<String> lines = new ArrayList<>();
+            StringBuilder current = new StringBuilder();
+            for (String biome : biomes.split(", ")) {
+                if (!current.isEmpty() && current.length() + biome.length() + 2 > BIOME_LINE_WIDTH) {
+                    lines.add(current.toString());
+                    current = new StringBuilder();
+                }
+                current.append(current.isEmpty() ? "" : ", ").append(biome);
+            }
+            lines.add(current.toString());
+
+            for (int i = 0; i < lines.size(); i++) {
+                String text = lines.get(i) + (i < lines.size() - 1 ? "," : "");
+                out.add(mini.deserialize((i == 0 ? prefix : carry + "  ") + text + suffix));
+            }
+        }
+        return out;
     }
 
     private static String averagePrice(IRarity rarity) {

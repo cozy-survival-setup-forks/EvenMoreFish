@@ -212,14 +212,16 @@ public class FishJournalGui extends ConfigGui {
         final String discoverer = getDiscoverer(fishStats, getUnknownMessage());
 
         EMFListMessage lore = EMFListMessage.ofList(
-            Optional.ofNullable(factory.getItemConfig(LoreItemConfig.class))
-                .map(ItemConfig::getConfiguredValue)
-                .orElse(Collections.emptyList())
+            com.oheers.fish.gui.SellInfoItems.expandBiomeLines(
+                Optional.ofNullable(factory.getItemConfig(LoreItemConfig.class))
+                    .map(ItemConfig::getConfiguredValue)
+                    .orElse(Collections.<net.kyori.adventure.text.Component>emptyList()),
+                fish
+            )
         );
 
         lore.setVariable("{rarity}", net.kyori.adventure.text.minimessage.MiniMessage.miniMessage().serialize(fish.getRarity().getDisplayName()));
         lore.setVariable("{price}", com.oheers.fish.gui.SellInfoItems.priceText(fish));
-        lore.setVariable("{biomes}", com.oheers.fish.gui.SellInfoItems.biomesText(fish));
         lore.setVariable("{size-range}", com.oheers.fish.gui.SellInfoItems.sizeText(fish));
         lore.setVariable("{times-caught}", getValueOrDefault(() -> userFishStats == null ? null : Integer.toString(userFishStats.getQuantity()), "0"));
         lore.setVariable("{largest-size}", getValueOrDefault(() -> userFishStats == null ? null : String.valueOf(userFishStats.getLongestLength()), "0"));
