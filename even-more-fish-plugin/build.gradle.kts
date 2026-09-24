@@ -75,8 +75,8 @@ dependencies {
         exclude("org.xerial", "sqlite-jdbc")
         exclude("com.mysql", "mysql-connector-j")
     }
-    compileOnly(libs.friendlyid)
-    compileOnly(libs.maven.artifact)
+    library(libs.friendlyid)
+    library(libs.maven.artifact)
     compileOnly(libs.guava)
 
     library(libs.bundles.flyway) {
